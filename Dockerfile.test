@@ -1,0 +1,8 @@
+# Dockerfile.test
+
+FROM alpine:latest
+WORKDIR /app
+COPY test.c /app
+RUN apk add build-base
+RUN gcc test.c
+ENTRYPOINT ["/app/a.out"]

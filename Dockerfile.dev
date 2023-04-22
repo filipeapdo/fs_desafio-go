@@ -1,5 +1,10 @@
+FROM alpine:latest as builder
+RUN apk add --no-cache build-base
+WORKDIR /app
+COPY test.c /app
+RUN gcc -Wall -Wextra -Werror test.c -o test
+
 FROM scratch
-
-WORKDIR /
-
-COPY test.txt .
+COPY --from=builder /app/test /app/test
+WORKDIR /app
+CMD ["/app/test"]
